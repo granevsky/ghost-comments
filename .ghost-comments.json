@@ -1,0 +1,88 @@
+{
+  "src/extension.ts": {
+    "3": {
+      "text": "--- Типы ---",
+      "author": "Granevsky",
+      "updatedAt": 1770571057684,
+      "context": "export interface CommentData {"
+    },
+    "14": {
+      "text": "Хелпер настроек",
+      "author": "Granevsky",
+      "updatedAt": 1770571090431,
+      "context": "function getConfig() {"
+    },
+    "24": {
+      "text": "Цвета",
+      "author": "Granevsky",
+      "updatedAt": 1770571180485,
+      "context": "colors: {\n            text: config.get<string>('colors.textColor') || '#6a9953',\n            error: config.get<string>('colors.errorColor') || '#ff9900'\n        }"
+    },
+    "35": {
+      "text": "--- CodeLens Provider ---",
+      "author": "Granevsky",
+      "updatedAt": 1770571198907,
+      "context": "class GhostLensProvider implements vscode.CodeLensProvider {"
+    },
+    "76": {
+      "text": "Слушатель настроек",
+      "author": "Granevsky",
+      "updatedAt": 1770571227216,
+      "context": "context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(async e => {\n        if (e.affectsConfiguration('ghost-comments')) {\n            await reloadDisplayMode(context);\n        }\n    }));"
+    },
+    "82": {
+      "text": "Команда: Добавить",
+      "author": "Granevsky",
+      "updatedAt": 1770571245700,
+      "context": "let cmdDisposable = vscode.commands.registerCommand('ghost-comments.addComment', async (lineArg?: number) => {"
+    },
+    "95": {
+      "text": "Поиск существующего комментария по визуальной строке",
+      "author": "Granevsky",
+      "updatedAt": 1770571270282,
+      "context": "let existingKey: string | undefined;\n        let existingData: CommentData | undefined;\n\n        if (allComments[relativePath]) {\n            for (const [keyLine, data] of Object.entries(allComments[relativePath])) {\n                const { line: actualLine } = findActualLine(editor.document, parseInt(keyLine), data.context, config.searchRange);\n                if (actualLine === targetLine) {\n                    existingKey = keyLine;\n                    existingData = data;\n                    break;\n                }\n            }\n        }"
+    },
+    "137": {
+      "text": "Команда: Синхронизация",
+      "author": "Granevsky",
+      "updatedAt": 1770571302241,
+      "context": "let syncDisposable = vscode.commands.registerCommand('ghost-comments.syncFile', async () => {"
+    },
+    "150": {
+      "text": "Событие сохранения",
+      "author": "Granevsky",
+      "updatedAt": 1770571324775,
+      "context": "vscode.workspace.onDidSaveTextDocument(async document => {\n        const editor = vscode.window.activeTextEditor;\n        if (getConfig().autoSync) {\n            await syncFileComments(document);\n        }\n        if (editor && editor.document === document) {\n            refreshView(editor);\n        }\n    }, null, context.subscriptions);"
+    },
+    "160": {
+      "text": "Событие изменения текста (для перерисовки декораций на лету)",
+      "author": "Granevsky",
+      "updatedAt": 1770571344258,
+      "context": "vscode.workspace.onDidChangeTextDocument(e => {\n        if (vscode.window.activeTextEditor && e.document === vscode.window.activeTextEditor.document) {\n            refreshView(vscode.window.activeTextEditor);\n        }\n    }, null, context.subscriptions);"
+    },
+    "168": {
+      "text": "--- УМНЫЙ ПОИСК ---",
+      "author": "Granevsky",
+      "updatedAt": 1770571390492,
+      "context": "export function findActualLine(document: vscode.TextDocument, originalLine: number, contextSnapshot: string, range: number): { line: number, isMatch: boolean } {"
+    },
+    "206": {
+      "text": "--- Отрисовка ---",
+      "author": "Granevsky",
+      "updatedAt": 1770571410882,
+      "context": "async function updateDecorationsAsync(editor: vscode.TextEditor, mode: string) {"
+    },
+    "229": {
+      "text": "Настройка цветов",
+      "author": "Granevsky",
+      "updatedAt": 1770571511420,
+      "context": "const textColor = config.colors.text \n                ? config.colors.text \n                : new vscode.ThemeColor('editorCodeLens.foreground');"
+    },
+    "259": {
+      "text": "--- Утилиты ---",
+      "author": "Granevsky",
+      "updatedAt": 1770571532127,
+      "context": "async function syncFileComments(document: vscode.TextDocument): Promise<boolean> {"
+    }
+  }
+}
