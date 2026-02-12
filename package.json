@@ -1,0 +1,135 @@
+{
+  "name": "ghost-comments",
+  "displayName": "Ghost Comments",
+  "description": "Leave notes in your code without changing the source file. Supports Git, Smart Search and different display modes.",
+  "version": "1.0.0",
+  "publisher": "Granevsky",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/granevsky/ghost-comments"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Productivity"
+  ],
+  "keywords": [
+    "comments",
+    "notes",
+    "annotation",
+    "ghost",
+    "review"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ghost-comments.addComment",
+        "title": "Ghost Comments: Add/Edit Note"
+      },
+      {
+        "command": "ghost-comments.syncFile",
+        "title": "Ghost Comments: Sync Line Numbers"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ghost-comments.addComment",
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Ghost Comments",
+      "properties": {
+        "ghost-comments.displayMode": {
+          "type": "string",
+          "enum": [
+            "right",
+            "left",
+            "codelens"
+          ],
+          "default": "right",
+          "description": "Mode of display: 'right' (text at line end), 'left' (badge), or 'codelens' (above line)."
+        },
+        "ghost-comments.author": {
+          "type": "string",
+          "default": "",
+          "description": "Your name/nickname for comment signature."
+        },
+        "ghost-comments.filename": {
+          "type": "string",
+          "default": ".ghost-comments.json",
+          "description": "Filename to store comments in the project root."
+        },
+        "ghost-comments.autoSyncOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically update line numbers in JSON when file is saved. (Warning: affects git diff)."
+        },
+        "ghost-comments.searchRange": {
+          "type": "number",
+          "default": 15,
+          "description": "Number of lines to search up/down for moved code. 0 = search entire file."
+        },
+        "ghost-comments.maxFileSize": {
+          "type": "number",
+          "default": 5242880,
+          "description": "Max size of the comments file (bytes)."
+        },
+        "ghost-comments.maxCommentLength": {
+          "type": "number",
+          "default": 500,
+          "description": "Max length of a single comment."
+        },
+        "ghost-comments.colors.textColor": {
+          "type": "string",
+          "default": "#6a9953",
+          "description": "Text color for comments."
+        },
+        "ghost-comments.colors.errorColor": {
+          "type": "string",
+          "default": "#ff9900",
+          "description": "Color for broken links (text in Right mode, border in Left mode)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "npm run compile-tests && node ./out/test/runTest.js",
+    "build": "vsce package"
+  },
+  "devDependencies": {
+    "@types/glob": "^9.0.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.80.0",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.27.0",
+    "eslint": "^9.0.0",
+    "glob": "^13.0.2",
+    "mocha": "^11.7.5",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.54.0"
+  }
+}
