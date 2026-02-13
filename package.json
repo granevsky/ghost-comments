@@ -2,7 +2,7 @@
   "name": "ghost-comments",
   "displayName": "Ghost Comments",
   "description": "Leave notes in your code without changing the source file. Supports Git, Smart Search and different display modes.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "Granevsky",
   "license": "MIT",
   "icon": "images/icon.png",
@@ -14,8 +14,7 @@
     "vscode": "^1.80.0"
   },
   "categories": [
-    "Other",
-    "Productivity"
+    "Other"
   ],
   "keywords": [
     "comments",

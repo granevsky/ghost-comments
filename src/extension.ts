@@ -201,7 +201,9 @@ function getContextAtLine(document: vscode.TextDocument, line: number, snapshot:
 }
 
 export function matchContext(textA: string, textB: string): boolean {
-    return textA.replace(/\s/g, '') === textB.replace(/\s/g, '');
+    const normA = textA.replace(/\s/g, '');
+    const normB = textB.replace(/\s/g, '');
+    return normA.includes(normB);
 }
 
 async function updateDecorationsAsync(editor: vscode.TextEditor, mode: string) {
