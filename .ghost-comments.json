@@ -66,19 +66,19 @@
       "updatedAt": 1770571390492,
       "context": "export function findActualLine(document: vscode.TextDocument, originalLine: number, contextSnapshot: string, range: number): { line: number, isMatch: boolean } {"
     },
-    "206": {
+    "208": {
       "text": "--- Отрисовка ---",
       "author": "Granevsky",
       "updatedAt": 1770571410882,
       "context": "async function updateDecorationsAsync(editor: vscode.TextEditor, mode: string) {"
     },
-    "229": {
+    "231": {
       "text": "Настройка цветов",
       "author": "Granevsky",
       "updatedAt": 1770571511420,
       "context": "const textColor = config.colors.text \n                ? config.colors.text \n                : new vscode.ThemeColor('editorCodeLens.foreground');"
     },
-    "259": {
+    "261": {
       "text": "--- Утилиты ---",
       "author": "Granevsky",
       "updatedAt": 1770571532127,
