@@ -1,8 +1,8 @@
 {
   "name": "ghost-comments",
   "displayName": "Ghost Comments",
-  "description": "Leave notes in your code without changing the source file. Supports Git, Smart Search and different display modes.",
-  "version": "1.0.1",
+  "description": "%extension.description%",
+  "version": "1.1.0",
   "publisher": "Granevsky",
   "license": "MIT",
   "icon": "images/icon.png",
@@ -10,8 +10,12 @@
     "type": "git",
     "url": "https://github.com/granevsky/ghost-comments"
   },
+  "bugs": {
+    "url": "https://github.com/granevsky/ghost-comments/issues"
+  },
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.80.0",
+    "pnpm": "^10.5.2"
   },
   "categories": [
     "Other"
@@ -31,13 +35,61 @@
     "commands": [
       {
         "command": "ghost-comments.addComment",
-        "title": "Ghost Comments: Add/Edit Note"
+        "title": "%command.addComment%"
       },
       {
         "command": "ghost-comments.syncFile",
-        "title": "Ghost Comments: Sync Line Numbers"
+        "title": "%command.syncFile%"
+      },
+      {
+        "command": "ghost-comments.sortByAlpha",
+        "title": "%command.sortByAlpha%",
+        "icon": "$(sort-precedence)"
+      },
+      {
+        "command": "ghost-comments.sortByDate",
+        "title": "%command.sortByDate%",
+        "icon": "$(history)"
+      },
+      {
+        "command": "ghost-comments.filterComments",
+        "title": "%command.filterComments%",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "ghost-comments.clearFilter",
+        "title": "%command.clearFilter%",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "ghost-comments.changeLanguage",
+        "title": "%command.changeLanguage%"
       }
     ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "ghost-comments.sortByAlpha",
+          "when": "view == ghost-comments-view && config.ghost-comments.sortOrder == date",
+          "group": "navigation@1"
+        },
+        {
+          "command": "ghost-comments.sortByDate",
+          "when": "view == ghost-comments-view && config.ghost-comments.sortOrder == alpha",
+          "group": "navigation@1"
+        },
+        {
+          "command": "ghost-comments.filterComments",
+          "when": "view == ghost-comments-view && !ghost-comments:isFiltered",
+          "group": "navigation@2"
+        },
+        {
+          "command": "ghost-comments.clearFilter",
+          "when": "view == ghost-comments-view && ghost-comments:isFiltered",
+          "group": "navigation@2"
+        }
+      ]
+    },
     "keybindings": [
       {
         "command": "ghost-comments.addComment",
@@ -46,9 +98,41 @@
         "when": "editorTextFocus"
       }
     ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ghost-comments-container",
+          "title": "%views.container.title%",
+          "icon": "images/ghost-comments.svg"
+        }
+      ]
+    },
+    "views": {
+      "ghost-comments-container": [
+        {
+          "id": "ghost-comments-view",
+          "name": "%views.comments.name%",
+          "when": "config.ghost-comments.showCommentManager"
+        }
+      ]
+    },
     "configuration": {
-      "title": "Ghost Comments",
+      "title": "%configuration.title%",
       "properties": {
+        "ghost-comments.showCommentManager": {
+          "type": "boolean",
+          "default": true,
+          "description": "%configuration.showCommentManager.desc%"
+        },
+        "ghost-comments.sortOrder": {
+          "type": "string",
+          "enum": [
+            "alpha",
+            "date"
+          ],
+          "default": "alpha",
+          "description": "%configuration.sortOrder.desc%"
+        },
         "ghost-comments.displayMode": {
           "type": "string",
           "enum": [
@@ -57,47 +141,57 @@
             "codelens"
           ],
           "default": "right",
-          "description": "Mode of display: 'right' (text at line end), 'left' (badge), or 'codelens' (above line)."
+          "description": "%configuration.displayMode.desc%"
         },
         "ghost-comments.author": {
           "type": "string",
           "default": "",
-          "description": "Your name/nickname for comment signature."
+          "description": "%configuration.author.desc%"
         },
         "ghost-comments.filename": {
           "type": "string",
           "default": ".ghost-comments.json",
-          "description": "Filename to store comments in the project root."
+          "description": "%configuration.filename.desc%"
         },
         "ghost-comments.autoSyncOnSave": {
           "type": "boolean",
           "default": false,
-          "description": "Automatically update line numbers in JSON when file is saved. (Warning: affects git diff)."
+          "description": "%configuration.autoSyncOnSave.desc%"
         },
         "ghost-comments.searchRange": {
           "type": "number",
           "default": 15,
-          "description": "Number of lines to search up/down for moved code. 0 = search entire file."
+          "description": "%configuration.searchRange.desc%"
         },
         "ghost-comments.maxFileSize": {
           "type": "number",
           "default": 5242880,
-          "description": "Max size of the comments file (bytes)."
+          "description": "%configuration.maxFileSize.desc%"
         },
         "ghost-comments.maxCommentLength": {
           "type": "number",
           "default": 500,
-          "description": "Max length of a single comment."
+          "description": "%configuration.maxCommentLength.desc%"
+        },
+        "ghost-comments.language": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "en",
+            "ru"
+          ],
+          "default": "auto",
+          "description": "Language for dynamic UI text ('auto' for system language)."
         },
         "ghost-comments.colors.textColor": {
           "type": "string",
           "default": "#6a9953",
-          "description": "Text color for comments."
+          "description": "%configuration.colors.textColor.desc%"
         },
         "ghost-comments.colors.errorColor": {
           "type": "string",
           "default": "#ff9900",
-          "description": "Color for broken links (text in Right mode, border in Left mode)."
+          "description": "%configuration.colors.errorColor.desc%"
         }
       }
     }
@@ -130,5 +224,6 @@
     "npm-run-all": "^4.1.5",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.54.0"
-  }
+  },
+  "packageManager": "pnpm@10.5.2+sha512.da9dc28cd3ff40d0592188235ab25d3202add8a207afbedc682220e4a0029ffbff4562102b9e6e46b4e3f9e8bd53e6d05de48544b0c57d4b0179e22c76d1199b"
 }

@@ -1,0 +1,22 @@
+{
+    "comment.prompt.placeholder": "Your comment...",
+    "comment.prompt.author": "Author: {0}. {1}",
+    "comment.status.edit": "(Edit)",
+    "comment.status.new": "(New)",
+    "comment.limit": "Limit {0}",
+    "sync.success": "Comments synchronized.",
+    "sync.notNeeded": "Synchronization not required.",
+    "author.prompt.title": "Configuration",
+    "author.prompt.placeholder": "Enter author name",
+    "search.placeholder": "Search...",
+    "search.prompt": "Enter comment text or part of filename",
+    "tree.line": "Line {0}",
+    "tree.openFile": "Open File",
+    "language.changed": "Language changed to {0}.",
+    "language.prompt.placeholder": "Select Language",
+    "decoration.broken.hover": "⚠️ **Context Lost**\n\nThe code has changed.\n\n```\n{0}\n```",
+    "decoration.format.broken": "(BROKEN LINK) {0}",
+    "lens.tooltip.match": "Edit comment",
+    "lens.tooltip.broken": "Code was modified or not found (⚠️)",
+    "lens.title": "👻: {0}"
+}

@@ -6,9 +6,11 @@
 
 *   **Non-intrusive**: Comments are not part of your source code files. They "float" near the code.
 *   **Git Friendly**: All comments are stored in `.ghost-comments.json`. Commit this file to share notes with your team.
+*   **Centralized Comment Manager**: View all project comments in a dedicated Sidebar tree view. Sort by date or alphabet, and filter rapidly.
 *   **Smart Context Search**: If you add lines above a comment or move a function, the comment follows the code! The extension remembers the code context, not just the line number.
 *   **Multiple Display Modes**: Choose how you want to see comments (Right, Left, or CodeLens).
-*   **Customizable**: Configure colors, authors, and behavior.
+*   **Internationalization (i18n)**: Out of the box English and Russian UI support.
+*   **Customizable**: Configure colors, authors, language, and behavior.
 
 ## How to Use
 
@@ -35,6 +37,9 @@ This extension contributes the following settings:
 | Setting | Default | Description |
 | :--- | :--- | :--- |
 | `ghost-comments.displayMode` | `"right"` | How comments are shown: `"right"` (end of line), `"left"` (gutter badge), or `"codelens"` (above the line). |
+| `ghost-comments.showCommentManager` | `true` | Show or hide the Ghost Comments Sidebar tree view. |
+| `ghost-comments.language` | `"auto"` | UI Language for tooltips/prompts (`"auto"`, `"en"`, `"ru"`). Expandable via `lang/` folder. |
+| `ghost-comments.sortOrder` | `"alpha"` | Default sort order in the sidebar (`"alpha"`, `"date"`). |
 | `ghost-comments.author` | `""` | Your name/nickname. Will be asked on first use. |
 | `ghost-comments.filename` | `".ghost-comments.json"` | Name of the file where comments are stored. |
 | `ghost-comments.autoSyncOnSave`| `false` | Automatically update line numbers in the JSON file when you save a source file. (Note: This creates changes in file for git). |
@@ -46,6 +51,7 @@ This extension contributes the following settings:
 
 *   `Ghost Comments: Add/Edit Note` (`ctrl+alt+c` / `cmd+alt+c`): Open input box to add or modify a comment.
 *   `Ghost Comments: Sync Line Numbers`: Scans the current file and updates the stored line numbers in `.ghost-comments.json` to match the current code positions.
+*   `Ghost Comments: Change Language`: Dynamically switch the internal UI language of the extension. Filters `.json` files in `lang/`.
 
 ## Team Collaboration
 
@@ -53,9 +59,6 @@ To share comments with your team:
 1.  Make sure `.ghost-comments.json` is **NOT** invalid in your `.gitignore` (unless you want private notes).
 2.  Commit the JSON file along with your code changes.
 3.  Your teammates will see your comments when they pull the changes (and have the extension installed).
-
-## Known Issues
-*   Renaming a source file will detach comments associated with the old filename. You need to manually rename the key in `.ghost-comments.json`.
 
 ---
 **Enjoy clearer code reviews!**
